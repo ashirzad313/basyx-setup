@@ -27,7 +27,7 @@ def main():
                     f'filename="{filename}"\r\nContent-Type: {MIME}\r\n\r\n').encode()
             body += args.file.read_bytes() + f'\r\n--{boundary}--\r\n'.encode()
             request = Request(base + "/upload", data=body, headers={
-                "Content-Type": f"multipart/form-data; boundary={boundary}", "Accept": MIME})
+                "Content-Type": f"multipart/form-data; boundary={boundary}", "Accept": "*/*"})
         else:
             request = Request(base + "/shells", headers={"Accept": "application/json"})
         with urlopen(request, timeout=60) as response:
