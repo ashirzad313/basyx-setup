@@ -1,0 +1,16 @@
+infrastructures:
+  default: local
+  local:
+    name: Local BaSyx
+    template: full
+    components:
+      aasRepository:
+        baseUrl: "http://localhost:8081"
+        hasRegistryIntegration: false
+      submodelRepository:
+        baseUrl: "http://localhost:8081"
+        hasRegistryIntegration: false
+      conceptDescriptionRepository:
+        baseUrl: "http://localhost:8081"
+    security:
+      type: none

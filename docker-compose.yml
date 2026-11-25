@@ -1,0 +1,23 @@
+services:
+  aas-server:
+    build: .
+    ports:
+      - "127.0.0.1:8081:8081"
+    environment:
+      BASYX_ENVIRONMENT: ${BASYX_ENVIRONMENT-file:/application/aas/changed-shell.aasx,file:/application/aas/new-shell.aasx}
+    volumes:
+      - ./application.properties:/application/application.properties:ro
+      - ./ExampleV3.aasx:/application/aas/ExampleV3.aasx:ro
+      - ./changed-shell.aasx:/application/aas/changed-shell.aasx:ro
+      - ./new-shell.aasx:/application/aas/new-shell.aasx:ro
+  aas-web-ui:
+    image: eclipsebasyx/aas-gui:v2-260801
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - aas-server
+    environment:
+      ALLOW_EDITING: "true"
+      ALLOW_UPLOADING: "true"
+    volumes:
+      - ./basyx-infra.yml:/basyx-infra.yml:ro
